@@ -1,0 +1,18 @@
+    def add_amount(self,account_name:str,amount:int,on_account:on_account_records):
+        if account_name != self.ignore_account_name:
+            record = self.search_by_name(account_name)
+            if record == {}:
+                on_account.add_account_loan(account_name,amount)
+            else:
+                record['amount'] += amount 
+    def remove_amount(self,account_name:str,amount:int,on_account:on_account_records):
+        if account_name != self.ignore_account_name:
+            record = self.search_by_name(account_name)
+            if record == {}:
+                on_account.payed_payment(account_name,amount)
+            else:
+                price = record['amount'] - amount
+                if price >= 0:
+                    record['amount'] = price 
+                else:
+                    raise shope_managment_system_exception(" account  "+account_name," dosnot have enough credit to support the transection")    
